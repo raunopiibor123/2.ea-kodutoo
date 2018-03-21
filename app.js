@@ -2,6 +2,8 @@
 let counter=0;
 let length=0;
 let score = 0;
+let streak = 0;
+
 const TYPER = function () {
   if (TYPER.instance_) {
     return TYPER.instance_
@@ -31,7 +33,6 @@ const TYPER = function () {
 
 function init () {
   scoreContainer = document.querySelector('score')
-  console.log(scoreContainer)
 }
 
 
@@ -84,10 +85,8 @@ TYPER.prototype = {
     this.word = new Word(wordFromArray, this.canvas, this.ctx)
 	length = generatedWordLength
 	counter = this.guessedWords
-	const splitScore = generatedWordLength * this.guessedWords
-	console.log(splitScore)
+	const splitScore = generatedWordLength * streak
 	this.score = this.score + splitScore
-	console.log(this.score)
 	score = this.score + score
 	
   
@@ -99,7 +98,8 @@ TYPER.prototype = {
 
     if (letter === this.word.left.charAt(0)) {
       this.word.removeFirstLetter()
-
+	  streak +=1
+	  console.log(streak)
       if (this.word.left.length === 0) {
         this.guessedWords += 1
 
@@ -109,9 +109,12 @@ TYPER.prototype = {
 
       this.word.Draw()
     }
+	else{
+		streak = 0
+	}
   }
-}
 
+}
 
 
 /* WORD */
@@ -132,15 +135,20 @@ Word.prototype = {
 	
 	this.ctx.textAlign = 'left'
     this.ctx.font = '40px Arial'
+	this.ctx.strokeStyle="red";
 	this.ctx.fillText("Guessed Words:",40 , 80)
     this.ctx.fillText(counter,350 , 80)
 	this.ctx.fillText("Word length:",40 , 150)
 	this.ctx.fillText(length,280 , 150)
 	this.ctx.fillText("Score:",40 , 220)
 	this.ctx.fillText(score,170 , 220)
-	this.ctx.rect(20,20,600,220);
+	this.ctx.rect(20,20,600,230);
 	this.ctx.stroke();
-
+	this.ctx.fillText("Streak:",1700 , 80)
+	this.ctx.fillText(streak,1850 , 80)
+	this.ctx.rect(1650,20,600,230);
+	this.ctx.stroke();
+	
   },
 
   removeFirstLetter: function () {
