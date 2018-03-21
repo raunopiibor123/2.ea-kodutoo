@@ -1,6 +1,7 @@
 /* TYPER */
-var counter=0;
-var length=0;
+let counter=0;
+let length=0;
+let score = 0;
 const TYPER = function () {
   if (TYPER.instance_) {
     return TYPER.instance_
@@ -21,6 +22,7 @@ const TYPER = function () {
   this.counter = counter
   this.splitScore = 0
   this.score = 0
+  
   
   this.init()
 }
@@ -86,14 +88,9 @@ TYPER.prototype = {
 	console.log(splitScore)
 	this.score = this.score + splitScore
 	console.log(this.score)
+	score = this.score + score
 	
-	
-	document.getElementById("Words").innerHTML =
-	"Õigesti arvatud sõnu:  " + counter + ".";  
-	document.getElementById("wordLenght").innerHTML =
-	"Sõna pikkus:  " + length+ ".";
-	document.getElementById("streak").innerHTML =
-	"Skoor:  " + this.score + ".";  
+  
 
   },
  
@@ -132,6 +129,18 @@ Word.prototype = {
     this.ctx.textAlign = 'center'
     this.ctx.font = '140px Courier'
     this.ctx.fillText(this.left, this.canvas.width / 2, this.canvas.height / 2)
+	
+	this.ctx.textAlign = 'left'
+    this.ctx.font = '40px Arial'
+	this.ctx.fillText("Guessed Words:",40 , 80)
+    this.ctx.fillText(counter,350 , 80)
+	this.ctx.fillText("Word length:",40 , 150)
+	this.ctx.fillText(length,280 , 150)
+	this.ctx.fillText("Score:",40 , 220)
+	this.ctx.fillText(score,170 , 220)
+	this.ctx.rect(20,20,600,220);
+	this.ctx.stroke();
+
   },
 
   removeFirstLetter: function () {
