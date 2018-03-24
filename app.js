@@ -25,8 +25,7 @@ const TYPER = function () {
   this.splitScore = 0
   this.score = 0
   
-  
-  this.init()
+  //this.init()
 }
 
 
@@ -41,9 +40,14 @@ window.TYPER = TYPER
 
 TYPER.prototype = {
   init: function () {
+    console.log("test1")
     this.canvas = document.getElementsByTagName('canvas')[0]
+    this.form = document.getElementsByTagName('form')[0]
     this.ctx = this.canvas.getContext('2d')
 
+    this.form.style.display = "none"
+
+    this.canvas.style.display = "block"
     this.canvas.style.width = this.WIDTH + 'px'
     this.canvas.style.height = this.HEIGHT + 'px'
 
