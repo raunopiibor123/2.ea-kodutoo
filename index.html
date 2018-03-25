@@ -1,31 +1,56 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
+    <link rel="stylesheet" href="css\bootstrap.min.css">
     <meta charset="UTF-8">
     <title>typer</title>
-    <style> 
-      * {
-        margin: 0;
-        padding: 0;
-      }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
 
-      html, body, canvas {
-        width: 100%;
-        height: 100%;
-      }
-      
-      canvas {
-        position: absolute;
-      }
-	  
-	
-	  
+        html,
+        body,
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
 
-	  
+        canvas {
+            position: absolute;
+        }
     </style>
     <script src="app.js"></script>
-  </head>
-  <body>
-    <canvas></canvas>
-  </body>
+</head>
+
+<body>
+    <form>
+        <h1 class="display-3" style="text-align: center">KLAHVIMINE</h1>
+        <div class="form-group">
+            <input type="text" id="userName" class="form-control" placeholder="Sisesta oma nimi" aria-label="Sisesta oma nimi">
+            <button type="button" class="btn btn-outline-success" onclick="start()">Alusta!</button>
+        </div>
+        <p>Mängu eesmärgiks on ekraanil olev sõna õigesti klaviatuuril trükkida.</p>
+        <p>Iga õigesti trükitud sõna suurendab su skoori ning järjest õigete tähtede vajutamine suurendam sinu <i>streak</i>'i</p>
+        <p>Kui oled nime sisestanud ja soovid mängu alustada, siis vajuta nuppu "Alusta!"</p>
+        <p>Kui soovid mängimist lõpetada, siis vajuta nuppu "Lõpeta"</p>
+    </form>
+    <canvas style="display: none">
+
+    </canvas>
+    <button type="button" id="finish" class="btn btn-outline-danger" style="position: absolute; margin-top: 25%; display: none;" onclick="TYPER().end()">Lõpeta</button>
+
+    <script>
+    function start(){
+        if(document.getElementById('userName').value != ""){
+            TYPER().init()
+        } else {
+            alert("Palun sisestage oma nimi!")
+        }
+    }
+    </script>
+</body>
+
 </html>
