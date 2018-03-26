@@ -3,6 +3,7 @@ let counter = 0;
 let length = 0;
 let score = 0;
 let streak = 0;
+let timer = 0;
 
 const TYPER = function () {
   if (TYPER.instance_) {
@@ -24,6 +25,7 @@ const TYPER = function () {
   this.counter = counter
   this.splitScore = 0
   this.score = 0
+  this.timer = 0
 }
 
 
@@ -43,6 +45,9 @@ TYPER.prototype = {
     this.ctx = this.canvas.getContext('2d')
     this.playerName = document.getElementById('userName').value
     this.finishButton = document.getElementById('finish')
+
+	this.arvutavali = document.getElementById('arvuta')
+	this.arvutavali.style.display = "block"
 
     this.form.style.display = "none"
     this.finishButton.style.display = "block"
@@ -75,13 +80,21 @@ TYPER.prototype = {
   },
 
   start: function () {
+	//setInterval(function(){ var d = new Date();
+    //var t = d.toLocaleTimeString();
+	//this.timer=t; timer=this.timer;}, 1000);
+	
+	var fiveMinutes = 60 * 5,
+        display = document.querySelector('#time');
+    startTimer(fiveMinutes, display);
+
     this.generateWord()
     this.word.Draw()
     window.addEventListener('keypress', this.keyPressed.bind(this))
   },
 
   generateWord: function () {
-    const generatedWordLength = this.wordMinLength + parseInt(this.guessedWords / 5)
+   const generatedWordLength = this.wordMinLength + parseInt(this.guessedWords / 5)
     const randomIndex = (Math.random() * (this.words[generatedWordLength].length - 1)).toFixed()
     const wordFromArray = this.words[generatedWordLength][randomIndex]
     this.word = new Word(wordFromArray, this.canvas, this.ctx)
@@ -90,9 +103,7 @@ TYPER.prototype = {
     const splitScore = generatedWordLength * streak
     this.score = this.score + splitScore
     score = this.score + score
-
-
-
+	
   },
 
   keyPressed: function (event) {
@@ -147,7 +158,9 @@ Word.prototype = {
     this.ctx.fillText(length, 280, 150)
     this.ctx.fillText("Score:", 40, 220)
     this.ctx.fillText(score, 170, 220)
-    this.ctx.rect(20, 20, 600, 230);
+    //this.ctx.fillText("Timer:",40, 290)
+	//this.ctx.fillText(timer, 170, 290)
+	this.ctx.rect(20, 20, 600, 230);
     this.ctx.stroke();
     this.ctx.fillText("Streak:", 1700, 80)
     this.ctx.fillText(streak, 1850, 80)
@@ -200,6 +213,34 @@ function generateScoreTable() {
     document.getElementById("scoreTableBody").appendChild(tableRow)
   }
 }
+
+function startTimer(duration, display) {
+    var start = Date.now(),
+        diff,
+        minutes,
+        seconds;
+    function timer() {
+
+        diff = duration - (((Date.now() - start) / 1000) | 0);
+        minutes = (diff / 60) | 0;
+        seconds = (diff % 60) | 0;
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds; 
+
+        if (diff <= 0) {
+            start = Date.now() + 1000;
+            TYPER().end();
+
+
+        }
+    };
+    timer();
+    setInterval(timer, 1000);
+}
+
 window.onload = function () {
   const typer = new TYPER()
   window.typer = typer
