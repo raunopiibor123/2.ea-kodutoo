@@ -32,16 +32,17 @@
             <input type="text" id="userName" class="form-control" placeholder="Sisesta oma nimi" aria-label="Sisesta oma nimi">
             <button type="button" class="btn btn-outline-success" onclick="start()">Alusta!</button>
         </div>
-        <p>Mängu eesmärgiks on ekraanil olev sõna õigesti klaviatuuril trükkida.</p>
+        <p>Mängu eesmärgiks on viie minuti jooskul ekraanil olevaid sõnu võimalikult kiirelt sisse trükkida.</p>
         <p>Iga õigesti trükitud sõna suurendab su skoori ning järjest õigete tähtede vajutamine suurendam sinu <i>streak</i>'i</p>
         <p>Kui oled nime sisestanud ja soovid mängu alustada, siis vajuta nuppu "Alusta!"</p>
         <p>Kui soovid mängimist lõpetada, siis vajuta nuppu "Lõpeta"</p>
     </form>
-    <canvas style="display: none">
+    <canvas style="display-10">
 
     </canvas>
+	<div id="arvuta" style="position: absolute; margin-top: 10%; display: none;"><font size="6" color="black">Mängu lõpuni on jäänud <span id="time""></span> minutit!</font></div>
     <button type="button" id="finish" class="btn btn-outline-danger" style="position: absolute; margin-top: 25%; display: none;" onclick="TYPER().end()">Lõpeta</button>
-
+	
     <script>
     function start(){
         if(document.getElementById('userName').value != ""){
