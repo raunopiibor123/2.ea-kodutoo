@@ -40,7 +40,8 @@ After the 5min or if you have ended the game by (lõpeta) you see score table wh
 ![Scoreboard](https://puu.sh/zQ2VE/71486c2143.png)
 
 
-
+This is a simplified scheme of our game
+![Scheme](https://puu.sh/zVu1y/6db7eb7791.png)
 
 
 
